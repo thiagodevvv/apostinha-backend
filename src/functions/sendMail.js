@@ -1,30 +1,36 @@
-require('dotenv').config();
 const nodemailer = require('nodemailer')
 
-const user = process.env.EMAIL
-const pass = process.env.PASSWORD
+
+function sendEmail(emailSender, passEmailSender, emailRecept, token) {
+    console.log('ESTOU AQUI SEND EMAIL')
+    const link = `http://localhost:3000/ativar/${token}`
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com", //host smtp
+        port: 587, // porta de envio dem email
+        secure: false,
+        auth: { user: emailSender, pass: passEmailSender },
+        tls: {
+            rejectUnauthorized: false
+        }
+    })
+
+    transporter.sendMail({
+        from: "Apostinha $1 Real <apostinha1real@gmail.com",
+        to: `${emailRecept}`,
+        subject: "Confirmar usuário Apostinha",
+        text: "",
+        html: `<h1>Seja bem vindo! Por favor confirme a sua conta: <a href="${link}">Clique aqui</a></h1>` 
+        
+
+    }).then(info => {
+        console.log(info)
+    }).catch(err => {
+        console.log(err)
+    })
+}
 
 
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com", //host smtp
-    port: 587, // porta de envio dem email
-    secure: false,
-    auth: { user, pass},
-    tls: {
-        rejectUnauthorized: false
-    }
-})
-
-transporter.sendMail({
-    from: "Apostinha $1 Real <apostinha1real@gmail.com",
-    to: "th.ferrari@outlook.com.br",
-    subject: "Confirmar email",
-    text: "Teste"
-
-}).then(info => {
-    console.log('coxinha')
-    console.log(info)
-}).catch(err => {
-    console.log(err)
-})
+module.exports = {
+    sendEmail
+}
