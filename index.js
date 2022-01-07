@@ -16,6 +16,7 @@ const GroupVinte = require('./database/models/group_20')
 const GroupCinquenta = require('./database/models/group_50')
 const GroupCem = require('./database/models/group_100')
 const GroupQuinhentos = require('./database/models/group_500')
+const TokenActiveAccount = require('./database/models/tokensActiveAccount')
 
 
 const app = express()

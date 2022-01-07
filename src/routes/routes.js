@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express.Router()
-const { signup } = require('../api/users')
+const { SignUp } = require('../api/users')
 
 
 
@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 })
 
 
-app.post('/signup',  (req,res) => signup(req,res))
+app.post('/signup',  (req,res) => SignUp(req,res))
 
 
 
