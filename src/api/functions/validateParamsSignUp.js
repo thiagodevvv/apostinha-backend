@@ -2,8 +2,8 @@ const Joi = require('joi')
 
 
 const schema = Joi.object({
-    username: Joi.string().required(),
-    email: Joi.string().required(),
+    username: Joi.string().min(5).max(30).required(),
+    email: Joi.string().email().required(),
     password: Joi.string().required()
 })
 
