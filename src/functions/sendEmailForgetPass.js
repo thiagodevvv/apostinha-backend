@@ -1,8 +1,7 @@
 const nodemailer = require('nodemailer')
 
 
-function sendEmail(emailSender, passEmailSender, emailRecept, token) {
-    const link = `http://localhost:3000/ativar/${token}`
+function sendEmailForgetPass(emailSender, passEmailSender, emailRecept, token_recovery) {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com", //host smtp
         port: 587, // porta de envio dem email
@@ -16,9 +15,9 @@ function sendEmail(emailSender, passEmailSender, emailRecept, token) {
     transporter.sendMail({
         from: "Apostinha $1 Real <apostinha1real@gmail.com",
         to: `${emailRecept}`,
-        subject: "Confirmar usuário Apostinha",
+        subject: "Alterar senha Apostinha",
         text: "",
-        html: `<h1>Seja bem vindo! Por favor confirme a sua conta: <a href="${link}">Clique aqui</a></h1>` 
+        html: `<h1>Aqui está seu código para recuperar sua senha: ${token_recovery}</h1>` 
         
 
     }).then(info => {
@@ -31,5 +30,5 @@ function sendEmail(emailSender, passEmailSender, emailRecept, token) {
 
 
 module.exports = {
-    sendEmail
+    sendEmailForgetPass
 }
