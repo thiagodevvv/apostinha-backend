@@ -3,9 +3,11 @@ const schemaSignUp = require('./schema/signup')
 const schemaSignIn = require('./schema/signin')
 const schemaEmail = require('./schema/emailForgetPass')
 const schemaNewPass = require('./schema/newpass')
+const schemaToken = require('./schema/token')
 const User = require('../../database/models/user.js')
 const TokensRecoveryPass = require('../../database/models/tokens_recovery')
 const TokensActiveAccount = require('../../database/models/tokensActiveAccount')
+const BlackListAuthTokens = require('../../database/models/black_list_auth_tokens')
 const { generateToken } = require('../functions/generateToken')
 const { sendEmail } = require('../functions/sendMail')
 const { sendEmailForgetPass } = require('../functions/sendEmailForgetPass')
@@ -148,9 +150,22 @@ async function NewPass(req, res) {
     
 }
 
+
+async function Logout(req, res) {
+    const token = req.headers['authorization']
+    const isValidParam = schemaToken.validate({token})
+    if(isValidParam.error) return res.status(400)
+
+    const responseInsertTokenBL = await BlackListAuthTokens.create({
+        token
+    })
+    return res.status(200).send('Token expire with success')
+}
+
 module.exports = {
     SignUp,
     SignIn,
     ForgetPass,
-    NewPass
+    NewPass,
+    Logout
 }
