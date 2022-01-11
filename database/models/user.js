@@ -24,7 +24,7 @@ const User = database.define('user', {
     },
     saldo: {
         type: Sequelize.DECIMAL,
-        default: 0
+        defaultValue: 0
     }
 })
 

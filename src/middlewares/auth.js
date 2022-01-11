@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.SECRET
 const schemaToken = require('../api/schema/token')
 const BlackListAuthTokens = require('../../database/models/black_list_auth_tokens')
+const TokensActiveAccount = require('../../database/models/tokensActiveAccount')
 
 
 
@@ -15,9 +16,17 @@ async function middlewareAuth(req, res, next) {
     })
     if(response.length > 0)
         return res.status(401).send('Token expired, need sign in again')
-    jwt.verify(token, secret, (err, decoded) => {
+    jwt.verify(token, secret, async(err, decoded) => {
         if(err)
             return res.status(401).send('Unauthorized')
+        const findStatusAccount = await TokensActiveAccount.findAll({
+            where: {
+                idUser: decoded.id
+            }
+        })
+        const isValidAccount = findStatusAccount[0].dataValues.status_active
+        if(!isValidAccount)
+            return res.status(401).send('Conta não ativada')
         req.userId = decoded.id
         next()
     })

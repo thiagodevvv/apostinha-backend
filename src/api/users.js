@@ -159,7 +159,11 @@ async function Logout(req, res) {
     const responseInsertTokenBL = await BlackListAuthTokens.create({
         token
     })
-    return res.status(200).send('Token expire with success')
+    console.log(responseInsertTokenBL.id)
+    if(responseInsertTokenBL.id > 0)
+        return res.status(200).send('Token expire with success')
+    else
+        return res.status(500).send('Error when delete insert token in black list')
 }
 
 module.exports = {
