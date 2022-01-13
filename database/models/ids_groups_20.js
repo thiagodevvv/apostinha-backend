@@ -12,7 +12,6 @@ const IdsGroupVinte = database.define('ids_groups_vinte', {
     idGroup: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 1
     },
     qnt: {
         type: Sequelize.INTEGER,

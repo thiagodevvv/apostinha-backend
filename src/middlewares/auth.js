@@ -24,9 +24,14 @@ async function middlewareAuth(req, res, next) {
                 idUser: decoded.id
             }
         })
-        const isValidAccount = findStatusAccount[0].dataValues.status_active
-        if(!isValidAccount)
-            return res.status(401).send('Conta não ativada')
+        if(findStatusAccount.length > 0) {
+            const isValidAccount = findStatusAccount[0].dataValues.status_active
+            if(!isValidAccount)
+                return res.status(401).send('Conta não ativada')
+        }
+        else {
+            return res.status(500).send('Nenhuma conta cadastrada')
+        }
         req.userId = decoded.id
         next()
     })
