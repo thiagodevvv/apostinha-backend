@@ -11,7 +11,7 @@ const GroupVinte = database.define('group_vinte', {
         primaryKey: true
     },
     idGroup: { // Vem lá do ids_group_20, mas não é FK.... PQ?
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 })
