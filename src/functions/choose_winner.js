@@ -1,5 +1,6 @@
 const IdsGroupVinte = require('../../database/models/ids_groups_20')
 const GroupsVinte = require('../../database/models/group_20')
+const Winners = require('../../database/models/winners')
 const { getArrIdsGroup } = require('../functions/getArrIdGroup')
 
 
@@ -39,9 +40,10 @@ async function chooseWinnerVinte(){
             return rs
         })
         await Promise.all(tst)
-        
+        console.log(tst)
         // [x ] realizar sorteio
         const numeroSorteado = Math.floor(Math.random() * (0 - 3) + 3)
+        console.log(`Numero sorteado:::::::::: ${numeroSorteado}`)
         const arrGanhadores = tst.map(item => {
             const arrGanhadores = {
                 idUser: item[numeroSorteado].idUser,
@@ -52,16 +54,21 @@ async function chooseWinnerVinte(){
         await Promise.all(arrGanhadores)
 
         // [x] setar status = 1  (Sorteado)
-        arrGanhadores.map(async item => {
+        await Promise.all(arrGanhadores.map(async item => {
             await IdsGroupVinte.update({ status: 1 },{
                 where: {
                     idGroup: item.idGroup
                 }
             })
-        })
-
-        
+        }))
         // [] preencher tabela de ganhadores winners.js
+        await Promise.all(arrGanhadores.map(async item => {
+            await Winners.create({
+                idUser: item.idUser,
+                group: item.idGroup
+            })
+        }))
+        console.log('passded winners')
         // [] preencher tabela frag_user
     }catch(err) {
         console.log('Erro no file choose_winner')
