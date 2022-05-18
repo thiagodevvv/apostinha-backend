@@ -45,7 +45,7 @@ const Frag = database.define('frag_user', {
 
 Frag.belongsTo(User, {
     constraint: true,
-    foreignKey: 'idUser'
+    foreignKey: 'idUser',
 })
 
 module.exports = Frag
