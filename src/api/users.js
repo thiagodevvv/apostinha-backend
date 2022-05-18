@@ -169,7 +169,6 @@ async function Logout(req, res) {
   const responseInsertTokenBL = await BlackListAuthTokens.create({
     token,
   });
-  console.log(responseInsertTokenBL.id);
   if (responseInsertTokenBL.id > 0)
     return res.status(200).send("Token expire with success");
   else
