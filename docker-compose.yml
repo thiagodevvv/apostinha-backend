@@ -16,6 +16,8 @@ services:
     build: .
     restart: always
     container_name: api
+    volumes:
+      - .:/usr/src/app
     ports:
       - "8000:8000"
     depends_on:
