@@ -1,7 +1,7 @@
 const { describe, it } = require("mocha");
 const assert = require("assert");
-const validatorParamsRequest = require("../src/functions/validatorParamsRequest.js");
-const schema = require("../src/api/schema/signup.js");
+const validatorParamsRequest = require("../src/functions/validatorParamsRequest");
+const schema = require("../src/api/schema/signup");
 
 describe("#Validator params request", () => {
   it("Success Params", () => {

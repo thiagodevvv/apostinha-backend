@@ -28,6 +28,4 @@ function sendEmail(emailSender, passEmailSender, emailRecept, token) {
     });
 }
 
-module.exports = {
-  sendEmail,
-};
+module.exports = sendEmail;

@@ -1,5 +1,4 @@
 const TokensActiveAccount = require("../../database/models/tokensActiveAccount");
-const FragUser = require("../../database/models/frag_user");
 var jwt = require("jsonwebtoken");
 const secret = process.env.SECRET;
 
@@ -15,9 +14,6 @@ async function ActiveAccount(req, res) {
         },
       }
     );
-    await FragUser.create({
-      idUser: decodedToken.id,
-    });
     res.status(200).send("Conta Ativada!");
   } catch {
     console.log("Error ao ativar conta");

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express.Router();
-const { SignUp, SignIn, ForgetPass, NewPass, Logout } = require("../api/users");
+const SignUp = require("../api/signup");
+const { SignIn, ForgetPass, NewPass, Logout } = require("../api/users");
 const { ActiveAccount } = require("../api/ativar");
 const { middlewareAuth } = require("../middlewares/auth");
 

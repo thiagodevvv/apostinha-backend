@@ -4,8 +4,10 @@
   "description": "API apostinha",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "test:cov": "npx nyc --reporters=html,text npm test",
+    "test": "npx mocha --parallel --exit test/",
+    "test:dev": "npx mocha ./test -w",
+    "dev": "npx nodemon index.js"
   },
   "author": "thiago henrique da silva",
   "license": "ISC",
@@ -17,13 +19,14 @@
     "express": "^4.17.2",
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "nodemailer": "^6.7.2",
     "sequelize": "^6.12.5",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.15",
+    "nyc": "^15.1.0"
   }
 }
