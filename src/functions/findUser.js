@@ -23,8 +23,7 @@ async function findUser(userNameOrEmail, password) {
       if (isValidPassword) {
         const payload = generatePayload(user[0].dataValues.id);
         const token = generateToken(payload, secret);
-        const user = { token };
-        return user;
+        return { token: token };
       } else {
         return false;
       }
